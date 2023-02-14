@@ -1,6 +1,5 @@
 //Event listeners
-// document.querySelector("#radiobtnselection_En").addEventListener('click', getFilteredCocktails)
-// document.querySelector("#radiobtnselection_Fr").addEventListener('click', getFilteredCocktails) 
+
 document.querySelector("#radiobtnselection_En").addEventListener('click', renderSortByLetter) 
 document.querySelector("#radiobtnselection_Fr").addEventListener('click', renderSortByLetterFR)
 document.getElementById("radiobtnselection_En").style.display="none"
@@ -100,73 +99,16 @@ function renderCocktails(cocktailList){
         function hideDropdown(){
             console.log(`${filteredCocktailArray[i][2]}`)
         document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
-            }
-        
+            }     
     }
-
     }  
 
-    // French version
-
-    function renderCocktailsFR(cocktailList){
-
-        const cocktailsContainer = document.querySelector("#cocktails-list");
-        console.log(cocktailList)
-            let letterTextBoxFR = document.querySelector(`input[name="drinkInitialFR"]`).value;
-            console.log(letterTextBoxFR)
-           let filteredCocktailList = cocktailList.drinks.filter((drink)=>drink.strDrink.charAt(0)=== letterTextBoxFR.toUpperCase())
-           
-           console.log(filteredCocktailList)
-           console.log(letterTextBoxFR)
-           let filteredCocktailArray = filteredCocktailList.map(Object.values)
-           
-           console.log(filteredCocktailArray)
-           console.log(filteredCocktailArray[0])
-           console.log(filteredCocktailArray[2])
-           for(let i=0; i<filteredCocktailArray.length; i++){
-           let list = document.createElement('li')
-           list.innerHTML = 
-            `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
-            <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
-               <option value="none" selected >Voulez-vous la recette?</option>
-                <option value="yes">Oui!</option>
-                <option value="no">Non, ça n'a pas l'air très bon ...</option>
-            </select>
-            <p>  </p>
-                ` 
-           
-            
-    
-            let answerDropdown = list.querySelector(".answer-dropdown")
-       
-            answerDropdown.addEventListener('change', (e) => { 
-            let yesOrNo = e.target.value
-            console.log(yesOrNo)
-            if(yesOrNo === "yes"){
-                getRecipeFR(cocktailList.drinks[0].idDrink);
-            }  else {
-                list.querySelector('p').textContent = ""
-            }
-            })
-            cocktailsContainer.appendChild(list)
-            
-            answerDropdown.addEventListener('change', hideDropdown)
-    
-            function hideDropdown(){
-                console.log(`${filteredCocktailArray[i][2]}`)
-            document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
-                }
-            
-        }
-    
-        }  
-
-
+   
 function renderSortByLetter(){
 let letterTextBox = document.querySelector("#typeLetter_EN");
 document.getElementById("typeLetter_EN").style.display= "block";
 console.log(letterTextBox);
-letterTextBox.addEventListener('keyup', getFilteredCocktailsFR)
+letterTextBox.addEventListener('keyup', getFilteredCocktails)
 }  
 
 function renderRecipes(recipe){
@@ -207,52 +149,107 @@ function renderRecipes(recipe){
         )
 }  
 
-function renderSortByLetterFR(){
-    let letterTextBoxFR = document.querySelector("#typeLetter_FR");
-    console.log(letterTextBoxFR);
-    document.getElementById("typeLetter_FR").style.display= "block";
-    letterTextBoxFR.addEventListener('keyup', getFilteredCocktailsFR)
-    }  
-    
-function renderRecipesFR(recipe){
-        cocktailCount +=1
-        let yummyBtn = "yummy"+cocktailCount
-            console.log(yummyBtn)
-        let notYummyBtn = "notyummy"+cocktailCount
-        console.log(recipe)
-        console.log(recipe.drinks[0].strInstructions)
-        let recipeText = document.createElement('ul')
-            recipeText.innerHTML=
-            `<h5>Recette</h5>
-            <p class = "recipe" > ${recipe.drinks[0].strInstructionsIT}</p>
-            <h6> Vous pensez que vous préparez ce cocktail dans le future?</h6>
-            <button  id=${yummyBtn} value="yes"/> Oui </button>
-            <button  id=${notYummyBtn} value="no"/> Non </button>` 
-       let cocktailInfo = document.querySelector(".cocktail_name")
-         cocktailInfo.appendChild(recipeText) 
-    
-         let counterDisplay= document.getElementById("counter")    
-           let yummy = document.getElementById(`${yummyBtn}`)
-           console.log(yummy)
-            yummy.addEventListener('click', () => {
-            yummyCount +=1;
-            console.log(document.getElementById(`${yummyBtn}`).id)
-            counterDisplay.textContent = yummyCount;
-                document.getElementById(`${yummyBtn}`).disabled = true;
-                document.getElementById(`${notYummyBtn}`).disabled = true;
-            })
-            
-            let notYummy = document.getElementById(`${notYummyBtn}`)
-                notYummy.addEventListener('click', () => {
-                yummyCount -=1;
-                counterDisplay.textContent = yummyCount;
-                document.getElementById(`${yummyBtn}`).disabled = true;
-                document.getElementById(`${notYummyBtn}`).disabled = true;
-            }
-            )
-    }  
-    
 
+
+  // French version
+
+  function renderCocktailsFR(cocktailList){
+
+    const cocktailsContainer = document.querySelector("#cocktails-list");
+    console.log(cocktailList)
+        let letterTextBoxFR = document.querySelector(`input[name="drinkInitialFR"]`).value;
+        console.log(letterTextBoxFR)
+       let filteredCocktailList = cocktailList.drinks.filter((drink)=>drink.strDrink.charAt(0)=== letterTextBoxFR.toUpperCase())
+       
+       console.log(filteredCocktailList)
+       console.log(letterTextBoxFR)
+       let filteredCocktailArray = filteredCocktailList.map(Object.values)
+       
+       console.log(filteredCocktailArray)
+       console.log(filteredCocktailArray[0])
+       console.log(filteredCocktailArray[2])
+       for(let i=0; i<filteredCocktailArray.length; i++){
+       let list = document.createElement('li')
+       list.innerHTML = 
+        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
+        <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
+           <option value="none" selected >Voulez-vous la recette?</option>
+            <option value="yes">Oui!</option>
+            <option value="no">Non, ça n'a pas l'air très bon ...</option>
+        </select>
+        <p>  </p>
+            ` 
+       
+        
+
+        let answerDropdown = list.querySelector(".answer-dropdown")
+   
+        answerDropdown.addEventListener('change', (e) => { 
+        let yesOrNo = e.target.value
+        console.log(yesOrNo)
+        if(yesOrNo === "yes"){
+            getRecipeFR(cocktailList.drinks[0].idDrink);
+        }  else {
+            list.querySelector('p').textContent = ""
+        }
+        })
+        cocktailsContainer.appendChild(list)
+        
+        answerDropdown.addEventListener('change', hideDropdown)
+
+        function hideDropdown(){
+            console.log(`${filteredCocktailArray[i][2]}`)
+        document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
+            }
+        
+    }
+
+    }     
+
+function renderSortByLetterFR(){
+        let letterTextBoxFR = document.querySelector("#typeLetter_FR");
+        console.log(letterTextBoxFR);
+        document.getElementById("typeLetter_FR").style.display= "block";
+        letterTextBoxFR.addEventListener('keyup', getFilteredCocktailsFR)
+        }  
+        
+ function renderRecipesFR(recipe){
+            cocktailCount +=1
+            let yummyBtn = "yummy"+cocktailCount
+                console.log(yummyBtn)
+            let notYummyBtn = "notyummy"+cocktailCount
+            console.log(recipe)
+            console.log(recipe.drinks[0].strInstructions)
+            let recipeText = document.createElement('ul')
+                recipeText.innerHTML=
+                `<h5>Recette</h5>
+                <p class = "recipe" > ${recipe.drinks[0].strInstructionsIT}</p>
+                <h6> Vous pensez que vous préparez ce cocktail dans le future?</h6>
+                <button  id=${yummyBtn} value="yes"/> Oui </button>
+                <button  id=${notYummyBtn} value="no"/> Non </button>` 
+           let cocktailInfo = document.querySelector(".cocktail_name")
+             cocktailInfo.appendChild(recipeText) 
+        
+             let counterDisplay= document.getElementById("counter")    
+               let yummy = document.getElementById(`${yummyBtn}`)
+               console.log(yummy)
+                yummy.addEventListener('click', () => {
+                yummyCount +=1;
+                console.log(document.getElementById(`${yummyBtn}`).id)
+                counterDisplay.textContent = yummyCount;
+                    document.getElementById(`${yummyBtn}`).disabled = true;
+                    document.getElementById(`${notYummyBtn}`).disabled = true;
+                })
+                
+                let notYummy = document.getElementById(`${notYummyBtn}`)
+                    notYummy.addEventListener('click', () => {
+                    yummyCount -=1;
+                    counterDisplay.textContent = yummyCount;
+                    document.getElementById(`${yummyBtn}`).disabled = true;
+                    document.getElementById(`${notYummyBtn}`).disabled = true;
+                }
+                )
+        }  
 
 //Fetch requests
 
