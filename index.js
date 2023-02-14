@@ -20,6 +20,8 @@ document.querySelector("#French_btn").addEventListener('mouseover', () =>
 
 //Globals
 
+let yummyCount = 0
+let cocktailCount = 0
 
 //Event handler functions
 
@@ -29,6 +31,7 @@ document.querySelector("#French_btn").addEventListener('mouseover', () =>
 // DOM render
 
 function renderCocktails(cocktailList){
+
     
     const cocktailsContainer = document.querySelector("#cocktails-list");
     console.log(cocktailList)
@@ -38,23 +41,22 @@ function renderCocktails(cocktailList){
        console.log(filteredCocktailList)
        console.log(letterTextBox)
        let filteredCocktailArray = filteredCocktailList.map(Object.values)
-       let list = document.createElement('li')
+       
        console.log(filteredCocktailArray)
        console.log(filteredCocktailArray[0])
        console.log(filteredCocktailArray[2])
-       filteredCocktailArray.forEach((drink) => {
+       for(let i=0; i<filteredCocktailArray.length; i++){
+       let list = document.createElement('li')
        list.innerHTML = 
-        `<h2 class = "cocktail_name">${filteredCocktailArray[0][0]}</h2>
-        <select class ="answer-dropdown" id=${filteredCocktailArray[0][2]}> 
+        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
+        <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
            <option value="none" selected >Do you want to get the recipe?</option>
             <option value="yes">Yes!</option>
             <option value="no">No, that doesn't look good ...</option>
         </select>
         <p>  </p>
-        <h4> Do you think you would like this cocktail?</h4>
-        <br />
             ` 
-       });
+       
         
 
         let answerDropdown = list.querySelector(".answer-dropdown")
@@ -64,7 +66,6 @@ function renderCocktails(cocktailList){
         console.log(yesOrNo)
         if(yesOrNo === "yes"){
             getRecipe(cocktailList.drinks[0].idDrink);
-           
         }  else {
             list.querySelector('p').textContent = ""
         }
@@ -72,6 +73,9 @@ function renderCocktails(cocktailList){
     
         cocktailsContainer.appendChild(list)
     }
+
+    }  
+
 
 function renderSortByLetter(){
 let letterTextBox = document.querySelector("#typeLetter_EN");
@@ -81,7 +85,43 @@ letterTextBox.addEventListener('keyup', getFilteredCocktails)
 }  
 
 function renderRecipes(recipe){
+    cocktailCount +=1
+    let yummyBtn = "yummy"+cocktailCount
+        console.log(yummyBtn)
+    let notYummyBtn = "yummy"+cocktailCount
+    console.log(recipe)
     console.log(recipe.drinks[0].strInstructions)
+    let recipeText = document.createElement('ul')
+        recipeText.innerHTML=
+        `<h6>Recipe</h6>
+        <p class = "recipe" > ${recipe.drinks[0].strInstructions}</p>
+        <h6> Do you want to try preparing this cocktail?</h6>
+        <br />
+        <button  id=${yummyBtn} value="yes"/> Yes </button>
+        <button  id=${notYummyBtn} value="no"/> No </button>` 
+   let cocktailInfo = document.querySelector(".cocktail_name")
+     cocktailInfo.appendChild(recipeText) 
+
+     let counterDisplay= document.getElementById("counter")    
+       let yummy = document.getElementById(`${funnyBtn}`)
+       console.log(yummy)
+        yummy.addEventListener('click', () => {
+            console.log("looping")
+        yummyCount +=1;
+        console.log(document.getElementById(`${yummyBtn}`).id)
+        counterDisplay.textContent = yummyCount;
+            document.getElementById(`${yummyBtn}`).disabled = true;
+            document.getElementById(`${notYummyBtn}`).disabled = true;
+        })
+        
+        let notYummy = document.getElementById(`${notYummyBtn}`)
+            notYummy.addEventListener('click', () => {
+            yummyCount -=1;
+            counterDisplay.textContent = yummyCount;
+            document.getElementById(`${yummyBtn}`).disabled = true;
+            document.getElementById(`${notYummyBtn}`).disabled = true;
+        }
+        )
 }     
 
 function switchToEnglish(e){
@@ -125,5 +165,3 @@ function getFilteredCocktails(){
            .then(recipe=>renderRecipes(recipe))   
     }
 
-    // <button  id=${yummyBtn} value="yes"/> Yes </button>
-    // <button  id=${notYummyBtn} value="no"/> No </button>

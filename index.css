@@ -67,3 +67,8 @@ summary{
 #Details_FR{
     display: none;
 }
+
+.recipe{
+    font-size: small;
+    font-weight: 100;
+}
