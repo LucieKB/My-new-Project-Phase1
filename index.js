@@ -2,6 +2,7 @@
 // document.querySelector("#radiobtnselection_En").addEventListener('click', getFilteredCocktails)
 // document.querySelector("#radiobtnselection_Fr").addEventListener('click', getFilteredCocktails) 
 document.querySelector("#radiobtnselection_En").addEventListener('click', renderSortByLetter) 
+document.querySelector("#radiobtnselection_Fr").addEventListener('click', renderSortByLetterFR)
 document.getElementById("radiobtnselection_En").style.display="none"
 document.getElementById("radiobtnselection_Fr").style.display="none"
 document.getElementById("pageTitle_Fr").style.display= "none"
@@ -25,10 +26,32 @@ let cocktailCount = 0
 
 //Event handler functions
 
-  
+function switchToEnglish(e){
+    e.preventDefault()
+    document.getElementById("radiobtnselection_Fr").style.display="none"
+    document.getElementById("radiobtnselection_En").style.display="block"
+    document.getElementById("pageTitle_Fr").style.display= "none"
+    document.getElementById("pageTitle_En").style.display= "block"
+    document.getElementById("emoji-box-title_FR").style.display= "none"
+    document.getElementById("emoji-box-title").style.display= "block"
+    document.getElementById("Details_FR").style.display= "none"
+    document.getElementById("Details_EN").style.display= "block"
+}
+
+function switchToFrench(e){
+    e.preventDefault()
+    document.getElementById("radiobtnselection_En").style.display="none"
+    document.getElementById("radiobtnselection_Fr").style.display="block"
+    document.getElementById("pageTitle_Fr").style.display= "block"
+    document.getElementById("pageTitle_En").style.display= "none"
+    document.getElementById("emoji-box-title_FR").style.display= "block"
+    document.getElementById("emoji-box-title").style.display= "none"
+    document.getElementById("Details_FR").style.display= "block"
+    document.getElementById("Details_EN").style.display= "none"
+}
 
 
-// DOM render
+// DOM render 
 
 function renderCocktails(cocktailList){
 
@@ -70,8 +93,15 @@ function renderCocktails(cocktailList){
             list.querySelector('p').textContent = ""
         }
         })
-    
         cocktailsContainer.appendChild(list)
+        
+        answerDropdown.addEventListener('change', hideDropdown)
+
+        function hideDropdown(){
+            console.log(`${filteredCocktailArray[i][2]}`)
+        document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
+            }
+        
     }
 
     }  
@@ -88,25 +118,23 @@ function renderRecipes(recipe){
     cocktailCount +=1
     let yummyBtn = "yummy"+cocktailCount
         console.log(yummyBtn)
-    let notYummyBtn = "yummy"+cocktailCount
+    let notYummyBtn = "notyummy"+cocktailCount
     console.log(recipe)
     console.log(recipe.drinks[0].strInstructions)
     let recipeText = document.createElement('ul')
         recipeText.innerHTML=
-        `<h6>Recipe</h6>
+        `<h5>Recipe</h5>
         <p class = "recipe" > ${recipe.drinks[0].strInstructions}</p>
-        <h6> Do you want to try preparing this cocktail?</h6>
-        <br />
+        <h6> Do you think you'll make this cocktail in the future?</h6>
         <button  id=${yummyBtn} value="yes"/> Yes </button>
         <button  id=${notYummyBtn} value="no"/> No </button>` 
    let cocktailInfo = document.querySelector(".cocktail_name")
      cocktailInfo.appendChild(recipeText) 
 
      let counterDisplay= document.getElementById("counter")    
-       let yummy = document.getElementById(`${funnyBtn}`)
+       let yummy = document.getElementById(`${yummyBtn}`)
        console.log(yummy)
         yummy.addEventListener('click', () => {
-            console.log("looping")
         yummyCount +=1;
         console.log(document.getElementById(`${yummyBtn}`).id)
         counterDisplay.textContent = yummyCount;
@@ -122,31 +150,54 @@ function renderRecipes(recipe){
             document.getElementById(`${notYummyBtn}`).disabled = true;
         }
         )
-}     
+}  
 
-function switchToEnglish(e){
-    e.preventDefault()
-    document.getElementById("radiobtnselection_Fr").style.display="none"
-    document.getElementById("radiobtnselection_En").style.display="block"
-    document.getElementById("pageTitle_Fr").style.display= "none"
-    document.getElementById("pageTitle_En").style.display= "block"
-    document.getElementById("emoji-box-title_FR").style.display= "none"
-    document.getElementById("emoji-box-title").style.display= "block"
-    document.getElementById("Details_FR").style.display= "none"
-    document.getElementById("Details_EN").style.display= "block"
-}
+function renderSortByLetterFR(){
+    let letterTextBox = document.querySelector("#typeLetter_FR");
+    document.getElementById("typeLetter_FR").style.display= "block";
+    console.log(letterTextBox);
+    letterTextBox.addEventListener('keyup', getFilteredCocktailsFR)
+    }  
+    
+    function renderRecipes(recipe){
+        cocktailCount +=1
+        let yummyBtn = "yummy"+cocktailCount
+            console.log(yummyBtn)
+        let notYummyBtn = "notyummy"+cocktailCount
+        console.log(recipe)
+        console.log(recipe.drinks[0].strInstructions)
+        let recipeText = document.createElement('ul')
+            recipeText.innerHTML=
+            `<h5>Recipe</h5>
+            <p class = "recette" > ${recipe.drinks[0].strInstructions}</p>
+            <h6> Vous pensez que vous préparez ce cocktail dans le future?</h6>
+            <button  id=${yummyBtn} value="yes"/> Oui </button>
+            <button  id=${notYummyBtn} value="no"/> Non </button>` 
+       let cocktailInfo = document.querySelector(".cocktail_name")
+         cocktailInfo.appendChild(recipeText) 
+    
+         let counterDisplay= document.getElementById("counter")    
+           let yummy = document.getElementById(`${yummyBtn}`)
+           console.log(yummy)
+            yummy.addEventListener('click', () => {
+            yummyCount +=1;
+            console.log(document.getElementById(`${yummyBtn}`).id)
+            counterDisplay.textContent = yummyCount;
+                document.getElementById(`${yummyBtn}`).disabled = true;
+                document.getElementById(`${notYummyBtn}`).disabled = true;
+            })
+            
+            let notYummy = document.getElementById(`${notYummyBtn}`)
+                notYummy.addEventListener('click', () => {
+                yummyCount -=1;
+                counterDisplay.textContent = yummyCount;
+                document.getElementById(`${yummyBtn}`).disabled = true;
+                document.getElementById(`${notYummyBtn}`).disabled = true;
+            }
+            )
+    }  
+    
 
-function switchToFrench(e){
-    e.preventDefault()
-    document.getElementById("radiobtnselection_En").style.display="none"
-    document.getElementById("radiobtnselection_Fr").style.display="block"
-    document.getElementById("pageTitle_Fr").style.display= "block"
-    document.getElementById("pageTitle_En").style.display= "none"
-    document.getElementById("emoji-box-title_FR").style.display= "block"
-    document.getElementById("emoji-box-title").style.display= "none"
-    document.getElementById("Details_FR").style.display= "block"
-    document.getElementById("Details_EN").style.display= "none"
-}
 
 //Fetch requests
 
@@ -157,6 +208,14 @@ function getFilteredCocktails(){
        .then(res => res.json())
        .then(cocktail=>renderCocktails(cocktail))   
     }
+
+    function getFilteredCocktailsFR(){
+        let cocktailCategory = document.querySelector(`input[name="alcohol_type"]:checked`).value
+        console.log(cocktailCategory)
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${cocktailCategory}`)
+           .then(res => res.json())
+           .then(cocktail=>renderCocktailsFR(cocktail))   
+        }
 
     function getRecipe(cocktailId){
         console.log(cocktailId)

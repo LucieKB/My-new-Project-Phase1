@@ -69,6 +69,17 @@ summary{
 }
 
 .recipe{
-    font-size: small;
+    font-size:medium;
+    font-style:italic;
     font-weight: 100;
+}
+
+h5{
+    text-shadow: 1px 1px 1px darkmagenta;
+    color: black
+}
+
+h6{
+    text-decoration:underline;
+    color:indigo
 }
