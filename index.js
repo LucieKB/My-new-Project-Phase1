@@ -106,12 +106,67 @@ function renderCocktails(cocktailList){
 
     }  
 
+    // French version
+
+    function renderCocktailsFR(cocktailList){
+
+        const cocktailsContainer = document.querySelector("#cocktails-list");
+        console.log(cocktailList)
+            let letterTextBoxFR = document.querySelector(`input[name="drinkInitialFR"]`).value;
+            console.log(letterTextBoxFR)
+           let filteredCocktailList = cocktailList.drinks.filter((drink)=>drink.strDrink.charAt(0)=== letterTextBoxFR.toUpperCase())
+           
+           console.log(filteredCocktailList)
+           console.log(letterTextBoxFR)
+           let filteredCocktailArray = filteredCocktailList.map(Object.values)
+           
+           console.log(filteredCocktailArray)
+           console.log(filteredCocktailArray[0])
+           console.log(filteredCocktailArray[2])
+           for(let i=0; i<filteredCocktailArray.length; i++){
+           let list = document.createElement('li')
+           list.innerHTML = 
+            `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
+            <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
+               <option value="none" selected >Voulez-vous la recette?</option>
+                <option value="yes">Oui!</option>
+                <option value="no">Non, ça n'a pas l'air très bon ...</option>
+            </select>
+            <p>  </p>
+                ` 
+           
+            
+    
+            let answerDropdown = list.querySelector(".answer-dropdown")
+       
+            answerDropdown.addEventListener('change', (e) => { 
+            let yesOrNo = e.target.value
+            console.log(yesOrNo)
+            if(yesOrNo === "yes"){
+                getRecipeFR(cocktailList.drinks[0].idDrink);
+            }  else {
+                list.querySelector('p').textContent = ""
+            }
+            })
+            cocktailsContainer.appendChild(list)
+            
+            answerDropdown.addEventListener('change', hideDropdown)
+    
+            function hideDropdown(){
+                console.log(`${filteredCocktailArray[i][2]}`)
+            document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
+                }
+            
+        }
+    
+        }  
+
 
 function renderSortByLetter(){
 let letterTextBox = document.querySelector("#typeLetter_EN");
 document.getElementById("typeLetter_EN").style.display= "block";
 console.log(letterTextBox);
-letterTextBox.addEventListener('keyup', getFilteredCocktails)
+letterTextBox.addEventListener('keyup', getFilteredCocktailsFR)
 }  
 
 function renderRecipes(recipe){
@@ -153,13 +208,13 @@ function renderRecipes(recipe){
 }  
 
 function renderSortByLetterFR(){
-    let letterTextBox = document.querySelector("#typeLetter_FR");
+    let letterTextBoxFR = document.querySelector("#typeLetter_FR");
+    console.log(letterTextBoxFR);
     document.getElementById("typeLetter_FR").style.display= "block";
-    console.log(letterTextBox);
-    letterTextBox.addEventListener('keyup', getFilteredCocktailsFR)
+    letterTextBoxFR.addEventListener('keyup', getFilteredCocktailsFR)
     }  
     
-    function renderRecipes(recipe){
+function renderRecipesFR(recipe){
         cocktailCount +=1
         let yummyBtn = "yummy"+cocktailCount
             console.log(yummyBtn)
@@ -168,8 +223,8 @@ function renderSortByLetterFR(){
         console.log(recipe.drinks[0].strInstructions)
         let recipeText = document.createElement('ul')
             recipeText.innerHTML=
-            `<h5>Recipe</h5>
-            <p class = "recette" > ${recipe.drinks[0].strInstructions}</p>
+            `<h5>Recette</h5>
+            <p class = "recipe" > ${recipe.drinks[0].strInstructionsIT}</p>
             <h6> Vous pensez que vous préparez ce cocktail dans le future?</h6>
             <button  id=${yummyBtn} value="yes"/> Oui </button>
             <button  id=${notYummyBtn} value="no"/> Non </button>` 
@@ -222,5 +277,12 @@ function getFilteredCocktails(){
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`)
            .then(res => res.json())
            .then(recipe=>renderRecipes(recipe))   
+    }
+
+    function getRecipeFR(cocktailId){
+        console.log(cocktailId)
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`)
+           .then(res => res.json())
+           .then(recipe=>renderRecipesFR(recipe))   
     }
 

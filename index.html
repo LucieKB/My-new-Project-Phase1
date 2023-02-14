@@ -29,7 +29,7 @@
          </button>
             
          <br />
-         <button id="French_btn" class = "language_btn" onclick = "fctBtn()">
+         <button id="French_btn" class = "language_btn">
             <img src="images/FR flag.png" width = "75" height="30">
             <div class="hideFR">Français</div>
          </button>
@@ -93,12 +93,13 @@
             </form>
         </div>
 
-        <div class = "typeletter_FR"> 
+        <div class = "typeletterFR"> 
             <form id="typeLetter_FR">
-            <p>Tapez la première lettre de cocktail votre cocktail ci-dessous :</p>
-            <input type="text" name="drinkInitial" maxLength="1" placeholder="Première lettre" value="">
+                <p>Tapez la première lettre du cocktail que vous voulez ci-dessous :</p>
+                <input type="text" name="drinkInitialFR" maxLength="1" placeholder="Première lettre" id="firstLetterFR">
             </form>
-        </div>
+         </div>
+
 
         <div id="cocktails_container" class="cocktails_list">
             <ul id="cocktails-list">
