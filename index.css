@@ -1,3 +1,69 @@
 h1{
     text-align: center;
 }
+
+h3{
+    text-align: center;
+}
+
+.radiobtnselection{
+    text-align: left ;
+    font-family: monospace;
+    width : 100%;
+    text-align: left;
+}
+
+.hide{
+    display : none;
+}
+
+.hideFR{
+    display : none;
+}
+
+summary{
+    font-weight: bold;
+    font-size: medium;
+    color: darkred;
+}
+
+.emoji-box{
+    display : flex;
+    justify-content: center;
+    align-items:center;
+    height : fit-content;
+    flex-direction: column;
+}
+
+.emoji-box-img{
+    display : flex;
+    justify-content: center;
+    align-items:center;
+    height : fit-content;
+    width : 400px;
+    flex-direction: row;
+}
+
+.emoji-box-title{
+    text-align: center;
+    width : 400px;
+}
+
+.emoji-counter{
+    background-color: black;
+      color: white;
+      display: table;
+      padding: 10px;
+}
+
+#typeLetter_EN{
+    display:none;
+}
+
+#typeLetter_FR{
+    display:none;
+}
+
+#Details_FR{
+    display: none;
+}
