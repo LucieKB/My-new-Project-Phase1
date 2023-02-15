@@ -83,3 +83,11 @@ h6{
     text-decoration:underline;
     color:indigo
 }
+
+legend{
+    padding: 0.2em 0.5em;
+  border: 1px solid fuchsia;
+  color: black;
+  text-align: center;
+}
+
