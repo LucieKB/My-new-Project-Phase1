@@ -35,6 +35,8 @@ function switchToEnglish(e){
     document.getElementById("emoji-box-title").style.display= "block"
     document.getElementById("Details_FR").style.display= "none"
     document.getElementById("Details_EN").style.display= "block"
+    document.querySelector("#French_btn").disabled = true;
+    document.querySelector("#English_btn").disabled = true;
 }
 
 function switchToFrench(e){
@@ -47,6 +49,8 @@ function switchToFrench(e){
     document.getElementById("emoji-box-title").style.display= "none"
     document.getElementById("Details_FR").style.display= "block"
     document.getElementById("Details_EN").style.display= "none"
+    document.querySelector("#French_btn").disabled = true;
+    document.querySelector("#English_btn").disabled = true;
 }
 
 
