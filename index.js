@@ -124,6 +124,8 @@ function renderRecipes(recipe,cocktailId){
     console.log(recipe.drinks[0].strInstructions)
     let cocktailResults = document.getElementById("cocktails-list")
     console.log(cocktailResults)
+    cocktailResults.childNodes.forEach((cocktail) =>{
+        if(cocktail.id === cocktailId){
     let recipeText = document.createElement('ul')
         recipeText.innerHTML=
         `<h5>Recipe</h5>
@@ -131,9 +133,8 @@ function renderRecipes(recipe,cocktailId){
         <h6> Do you think you'll make this cocktail in the future?</h6>
         <button  id=${yummyBtn} value="yes"/> Yes </button>
         <button  id=${notYummyBtn} value="no"/> No </button>` 
-   let cocktailInfo = document.querySelector(".cocktail_name")
-     cocktailInfo.appendChild(recipeText) 
-
+     cocktail.appendChild(recipeText) 
+}})
      let counterDisplay= document.getElementById("counter")    
        let yummy = document.getElementById(`${yummyBtn}`)
        console.log(yummy)
