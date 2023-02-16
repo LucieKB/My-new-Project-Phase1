@@ -91,7 +91,7 @@ function renderCocktails(cocktailList){
         let yesOrNo = e.target.value
         console.log(yesOrNo)
         if(yesOrNo === "yes"){
-            getRecipe(cocktailList.drinks[0].idDrink);
+            getRecipe(cocktailList.drinks[i].idDrink);
         }  else {
             list.querySelector('p').textContent = ""
         }
@@ -115,13 +115,15 @@ console.log(letterTextBox);
 letterTextBox.addEventListener('keyup', getFilteredCocktails)
 }  
 
-function renderRecipes(recipe){
+function renderRecipes(recipe,cocktailId){
     cocktailCount +=1
     let yummyBtn = "yummy"+cocktailCount
         console.log(yummyBtn)
     let notYummyBtn = "notyummy"+cocktailCount
     console.log(recipe)
     console.log(recipe.drinks[0].strInstructions)
+    let cocktailResults = document.getElementById("cocktails-list")
+    console.log(cocktailResults)
     let recipeText = document.createElement('ul')
         recipeText.innerHTML=
         `<h5>Recipe</h5>
@@ -217,7 +219,7 @@ function renderSortByLetterFR(){
         letterTextBoxFR.addEventListener('keyup', getFilteredCocktailsFR)
         }  
         
- function renderRecipesFR(recipe){
+ function renderRecipesFR(recipe,cocktailId){
             cocktailCount +=1
             let yummyBtn = "yummy"+cocktailCount
                 console.log(yummyBtn)
@@ -277,13 +279,13 @@ function getFilteredCocktails(){
         console.log(cocktailId)
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`)
            .then(res => res.json())
-           .then(recipe=>renderRecipes(recipe))   
+           .then(recipe=>renderRecipes(recipe,cocktailId))   
     }
 
     function getRecipeFR(cocktailId){
         console.log(cocktailId)
         fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`)
            .then(res => res.json())
-           .then(recipe=>renderRecipesFR(recipe))   
+           .then(recipe=>renderRecipesFR(recipe,cocktailId))   
     }
 
