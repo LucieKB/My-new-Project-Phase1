@@ -211,10 +211,11 @@ function renderCocktailsFR(cocktailList){
         cocktailsContainer.appendChild(list)
         
         answerDropdown.addEventListener('change', hideDropdown)
+       
         function hideDropdown(){
             console.log(`${filteredCocktailArray[i][2]}`)
-        document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
-            }
+        document.getElementById(`${filteredCocktailArray[i][2]}H`).style.display = "none" 
+            }     
         
     }
 }
@@ -234,7 +235,7 @@ function renderRecipesFR(recipe,cocktailId){
                 console.log(yummyBtn)
             let notYummyBtn = "notyummy"+cocktailCount
             console.log(recipe)
-            console.log(recipe.drinks[0].strInstructions)
+            console.log(recipe.drinks[0].strInstructionsIT)
             let cocktailResults = document.getElementById("cocktails-list")
             console.log(cocktailResults)
             console.log(cocktailId)
@@ -242,8 +243,7 @@ function renderRecipesFR(recipe,cocktailId){
             cocktailResults.childNodes.forEach((cocktail) =>{
                 console.log(cocktail.id)
                 if(cocktail.id === cocktailId){
-          
-            
+                     
             console.log(cocktail)
                 cocktail.innerHTML+=
                 `<h5>Recette</h5>
