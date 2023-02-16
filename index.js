@@ -74,9 +74,10 @@ function renderCocktails(cocktailList){
        for(let i=0; i<filteredCocktailArray.length; i++){
        let list = document.createElement('li')
        list.setAttribute('id',filteredCocktailArray[i][2])
+       let selectId = filteredCocktailArray[i][2] + "H"
        list.innerHTML = 
         `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]} </h2>
-        <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
+        <select class ="answer-dropdown" id=${selectId}> 
            <option value="none" selected >Do you want to get the recipe?</option>
             <option value="yes">Yes!</option>
             <option value="no">No, that doesn't look good ...</option>
@@ -92,7 +93,7 @@ function renderCocktails(cocktailList){
         let yesOrNo = e.target.value
         console.log(yesOrNo)
         if(yesOrNo === "yes"){
-            getRecipe(cocktailList.drinks[i].idDrink);
+            getRecipe(filteredCocktailArray[i][2]);
         }  else {
             list.querySelector('p').textContent = ""
         }
@@ -103,7 +104,7 @@ function renderCocktails(cocktailList){
 
         function hideDropdown(){
             console.log(`${filteredCocktailArray[i][2]}`)
-        document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
+        document.getElementById(`${filteredCocktailArray[i][2]}H`).style.display = "none" 
             }     
     }
     }  
@@ -125,12 +126,13 @@ function renderRecipes(recipe,cocktailId){
     console.log(recipe.drinks[0].strInstructions)
     let cocktailResults = document.getElementById("cocktails-list")
     console.log(cocktailResults)
+    console.log(cocktailId)
+    console.log(cocktailResults.childNodes)
     cocktailResults.childNodes.forEach((cocktail) =>{
         console.log(cocktail.id)
-    console.log(cocktail)
         if(cocktail.id === cocktailId){
     // let recipeText = document.createElement('ul')
-    console.log(cocktail.id)
+    
     console.log(cocktail)
         cocktail.innerHTML+=
         `<h5>Recipe</h5>
@@ -139,27 +141,27 @@ function renderRecipes(recipe,cocktailId){
         <button  id=${yummyBtn} value="yes"/> Yes </button>
         <button  id=${notYummyBtn} value="no"/> No </button>` 
    
-    //  cocktail.appendChild(recipeText) 
+    
 }})
-    //  let counterDisplay= document.getElementById("counter")    
-    //    let yummy = document.getElementById(`${yummyBtn}`)
-    //    console.log(yummy)
-    //     yummy.addEventListener('click', () => {
-    //     yummyCount +=1;
-    //     console.log(document.getElementById(`${yummyBtn}`).id)
-    //     counterDisplay.textContent = yummyCount;
-    //         document.getElementById(`${yummyBtn}`).disabled = true;
-    //         document.getElementById(`${notYummyBtn}`).disabled = true;
-    //     })
+     let counterDisplay= document.getElementById("counter")    
+       let yummy = document.getElementById(`${yummyBtn}`)
+       console.log(yummy)
+        yummy.addEventListener('click', () => {
+        yummyCount +=1;
+        console.log(document.getElementById(`${yummyBtn}`).id)
+        counterDisplay.textContent = yummyCount;
+            document.getElementById(`${yummyBtn}`).disabled = true;
+            document.getElementById(`${notYummyBtn}`).disabled = true;
+        })
         
-    //     let notYummy = document.getElementById(`${notYummyBtn}`)
-    //         notYummy.addEventListener('click', () => {
-    //         yummyCount -=1;
-    //         counterDisplay.textContent = yummyCount;
-    //         document.getElementById(`${yummyBtn}`).disabled = true;
-    //         document.getElementById(`${notYummyBtn}`).disabled = true;
-    //     }
-    //     )
+        let notYummy = document.getElementById(`${notYummyBtn}`)
+            notYummy.addEventListener('click', () => {
+            yummyCount -=1;
+            counterDisplay.textContent = yummyCount;
+            document.getElementById(`${yummyBtn}`).disabled = true;
+            document.getElementById(`${notYummyBtn}`).disabled = true;
+        }
+        )
 }  
 
 
