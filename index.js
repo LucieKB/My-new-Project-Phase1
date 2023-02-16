@@ -168,12 +168,11 @@ function renderRecipes(recipe,cocktailId){
 
   // French version
 
-  function renderCocktailsFR(cocktailList){
-
+  
+function renderCocktailsFR(cocktailList){
     const cocktailsContainer = document.querySelector("#cocktails-list");
     console.log(cocktailList)
         let letterTextBoxFR = document.querySelector(`input[name="drinkInitialFR"]`).value;
-        console.log(letterTextBoxFR)
        let filteredCocktailList = cocktailList.drinks.filter((drink)=>drink.strDrink.charAt(0)=== letterTextBoxFR.toUpperCase())
        
        console.log(filteredCocktailList)
@@ -185,25 +184,26 @@ function renderRecipes(recipe,cocktailId){
        console.log(filteredCocktailArray[2])
        for(let i=0; i<filteredCocktailArray.length; i++){
        let list = document.createElement('li')
+       list.setAttribute('id',filteredCocktailArray[i][2])
+       let selectId = filteredCocktailArray[i][2] + "H"
        list.innerHTML = 
-        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
-        <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
-           <option value="none" selected >Voulez-vous la recette?</option>
+        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]} </h2>
+        <select class ="answer-dropdown" id=${selectId}> 
+            <option value="none" selected >Voulez-vous la recette?</option>
             <option value="yes">Oui!</option>
             <option value="no">Non, ça n'a pas l'air très bon ...</option>
         </select>
         <p>  </p>
-            ` 
+        ` 
        
-        
-
+    
         let answerDropdown = list.querySelector(".answer-dropdown")
    
         answerDropdown.addEventListener('change', (e) => { 
         let yesOrNo = e.target.value
         console.log(yesOrNo)
         if(yesOrNo === "yes"){
-            getRecipeFR(cocktailList.drinks[0].idDrink);
+            getRecipeFR(filteredCocktailArray[i][2]);
         }  else {
             list.querySelector('p').textContent = ""
         }
@@ -211,15 +211,13 @@ function renderRecipes(recipe,cocktailId){
         cocktailsContainer.appendChild(list)
         
         answerDropdown.addEventListener('change', hideDropdown)
-
         function hideDropdown(){
             console.log(`${filteredCocktailArray[i][2]}`)
         document.getElementById(`${filteredCocktailArray[i][2]}`).style.display = "none" 
             }
         
     }
-
-    }     
+}
 
 function renderSortByLetterFR(){
         let letterTextBoxFR = document.querySelector("#typeLetter_FR");
