@@ -131,7 +131,7 @@ function renderRecipes(recipe,cocktailId){
     cocktailResults.childNodes.forEach((cocktail) =>{
         console.log(cocktail.id)
         if(cocktail.id === cocktailId){
-    // let recipeText = document.createElement('ul')
+  
     
     console.log(cocktail)
         cocktail.innerHTML+=
@@ -226,23 +226,34 @@ function renderSortByLetterFR(){
         letterTextBoxFR.addEventListener('keyup', getFilteredCocktailsFR)
         }  
         
- function renderRecipesFR(recipe,cocktailId){
+
+
+function renderRecipesFR(recipe,cocktailId){
             cocktailCount +=1
             let yummyBtn = "yummy"+cocktailCount
                 console.log(yummyBtn)
             let notYummyBtn = "notyummy"+cocktailCount
             console.log(recipe)
             console.log(recipe.drinks[0].strInstructions)
-            let recipeText = document.createElement('ul')
-                recipeText.innerHTML=
+            let cocktailResults = document.getElementById("cocktails-list")
+            console.log(cocktailResults)
+            console.log(cocktailId)
+            console.log(cocktailResults.childNodes)
+            cocktailResults.childNodes.forEach((cocktail) =>{
+                console.log(cocktail.id)
+                if(cocktail.id === cocktailId){
+          
+            
+            console.log(cocktail)
+                cocktail.innerHTML+=
                 `<h5>Recette</h5>
                 <p class = "recipe" > ${recipe.drinks[0].strInstructionsIT}</p>
                 <h6> Vous pensez que vous préparez ce cocktail dans le future?</h6>
                 <button  id=${yummyBtn} value="yes"/> Oui </button>
-                <button  id=${notYummyBtn} value="no"/> Non </button>` 
-           let cocktailInfo = document.querySelector(".cocktail_name")
-             cocktailInfo.appendChild(recipeText) 
-        
+                <button  id=${notYummyBtn} value="no"/> Non </button>`
+           
+            
+        }})
              let counterDisplay= document.getElementById("counter")    
                let yummy = document.getElementById(`${yummyBtn}`)
                console.log(yummy)
@@ -263,7 +274,7 @@ function renderSortByLetterFR(){
                 }
                 )
         }  
-
+        
 //Fetch requests
 
 function getFilteredCocktails(){
