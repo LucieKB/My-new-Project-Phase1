@@ -73,8 +73,9 @@ function renderCocktails(cocktailList){
        console.log(filteredCocktailArray[2])
        for(let i=0; i<filteredCocktailArray.length; i++){
        let list = document.createElement('li')
+       list.setAttribute('id',filteredCocktailArray[i][2])
        list.innerHTML = 
-        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]}</h2>
+        `<h2 class = "cocktail_name">${filteredCocktailArray[i][0]} </h2>
         <select class ="answer-dropdown" id=${filteredCocktailArray[i][2]}> 
            <option value="none" selected >Do you want to get the recipe?</option>
             <option value="yes">Yes!</option>
@@ -125,35 +126,40 @@ function renderRecipes(recipe,cocktailId){
     let cocktailResults = document.getElementById("cocktails-list")
     console.log(cocktailResults)
     cocktailResults.childNodes.forEach((cocktail) =>{
+        console.log(cocktail.id)
+    console.log(cocktail)
         if(cocktail.id === cocktailId){
-    let recipeText = document.createElement('ul')
-        recipeText.innerHTML=
+    // let recipeText = document.createElement('ul')
+    console.log(cocktail.id)
+    console.log(cocktail)
+        cocktail.innerHTML+=
         `<h5>Recipe</h5>
         <p class = "recipe" > ${recipe.drinks[0].strInstructions}</p>
         <h6> Do you think you'll make this cocktail in the future?</h6>
         <button  id=${yummyBtn} value="yes"/> Yes </button>
         <button  id=${notYummyBtn} value="no"/> No </button>` 
-     cocktail.appendChild(recipeText) 
+   
+    //  cocktail.appendChild(recipeText) 
 }})
-     let counterDisplay= document.getElementById("counter")    
-       let yummy = document.getElementById(`${yummyBtn}`)
-       console.log(yummy)
-        yummy.addEventListener('click', () => {
-        yummyCount +=1;
-        console.log(document.getElementById(`${yummyBtn}`).id)
-        counterDisplay.textContent = yummyCount;
-            document.getElementById(`${yummyBtn}`).disabled = true;
-            document.getElementById(`${notYummyBtn}`).disabled = true;
-        })
+    //  let counterDisplay= document.getElementById("counter")    
+    //    let yummy = document.getElementById(`${yummyBtn}`)
+    //    console.log(yummy)
+    //     yummy.addEventListener('click', () => {
+    //     yummyCount +=1;
+    //     console.log(document.getElementById(`${yummyBtn}`).id)
+    //     counterDisplay.textContent = yummyCount;
+    //         document.getElementById(`${yummyBtn}`).disabled = true;
+    //         document.getElementById(`${notYummyBtn}`).disabled = true;
+    //     })
         
-        let notYummy = document.getElementById(`${notYummyBtn}`)
-            notYummy.addEventListener('click', () => {
-            yummyCount -=1;
-            counterDisplay.textContent = yummyCount;
-            document.getElementById(`${yummyBtn}`).disabled = true;
-            document.getElementById(`${notYummyBtn}`).disabled = true;
-        }
-        )
+    //     let notYummy = document.getElementById(`${notYummyBtn}`)
+    //         notYummy.addEventListener('click', () => {
+    //         yummyCount -=1;
+    //         counterDisplay.textContent = yummyCount;
+    //         document.getElementById(`${yummyBtn}`).disabled = true;
+    //         document.getElementById(`${notYummyBtn}`).disabled = true;
+    //     }
+    //     )
 }  
 
 
